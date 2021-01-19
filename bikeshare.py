@@ -1,3 +1,5 @@
+###  Project shared to GitHub for Udacity version control project ###
+
 import datetime
 import time
 import pandas as pd
@@ -64,7 +66,7 @@ def get_filters():
     print ('Selected filters are ', city, sel_filter, focus_month, focus_day)
 
     print('-'*40)
-    
+
     return(city, focus_month, focus_day)
 
 def load_data(city, focus_month, focus_day):
@@ -84,9 +86,9 @@ def load_data(city, focus_month, focus_day):
     days_list = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'all']
 
     fullpath = './'+ CITY_DATA[city.lower()]
-        
+
     df = pd.read_csv(fullpath)
-    
+
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
@@ -145,7 +147,7 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
     input("Press Enter to continue...")
-    
+
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
@@ -165,30 +167,30 @@ def station_stats(df):
     # display most frequent combination of start station and end station trip
     x = str(df.groupby(['Start Station', 'End Station']).size().sort_values(ascending=False).head(1).index[0])
     x = x.replace('(', '').replace(')', '').replace("'", '')
-    print('Most frequent combination of start and end station: ',x.strip())  
+    print('Most frequent combination of start and end station: ',x.strip())
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
     input("Press Enter to continue...")
-    
+
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
-    
+
     #Display total travel time
     print('Total Travel Time: ', seconds_to_datestamp(df['Trip Duration'].sum()))
     #print('Total Travel Time: ', df['Trip Duration'].sum())
-    
+
     #Display mean travel time
     print('Mean Travel Time: ', seconds_to_datestamp(df['Trip Duration'].mean()))
     #print('Mean Travel Time: ', df['Trip Duration'].mean())
- 
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
     input("Press Enter to continue...")
-    
+
 def seconds_to_datestamp(input_seconds):
     #Code snippet obtained from https://www.w3resource.com/python-exercises/python-basic-exercise-65.php and modified to suit#
     day = input_seconds // (24 * 3600)
@@ -212,33 +214,33 @@ def user_stats(df):
     else:
         x = 'N/A'
     print('Count of user types: {}'.format(x))
- 
+
     #Display counts of gender
     if 'Gender' in df.columns:
         x = '\n' + df['Gender'].value_counts().to_string()
     else:
         x = 'N/A'
     print('\nCount of Genders: {}'.format(x))
- 
+
     #Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df.columns:
         x = int(df['Birth Year'].min())
     else:
         x = 'N/A'
     print('\nEarliest year of birth: {}'.format(x))
- 
+
     if 'Birth Year' in df.columns:
         x = int(df['Birth Year'].max())
     else:
         x = 'N/A'
     print('\n Most recent birth year: {}'.format(x))
- 
+
     if 'Birth Year' in df.columns:
         x = int(df['Birth Year'].mode()[0])
     else:
         x = 'N/A'
     print('Most common year of birth: {}'.format(x))
- 
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
     input("Press Enter to continue...")
@@ -251,13 +253,13 @@ def display_data(df):
         print(df.iloc[start_loc:start_loc+5])
         start_loc += 5
         view_display = input("Do you wish to continue?: ").lower()
-    
+
 def main():
     while True:
         print("Welcome let's have a look at some US Bikeshare data analysis\n")
         print("You will be asked to press enter to move between the various analysis sections\n\n")
         print('-'*40)
-              
+
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
