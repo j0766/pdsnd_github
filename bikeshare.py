@@ -19,8 +19,12 @@ def get_filters():
     focus_month = ''
     focus_day = ''
 
-    #Get city for analysis focus
-    city = input('Would you like to look at Chicago, New York or Washington?')
+    #Get city for analysis focus - make input string dynamic based on input files
+    input_str = 'Would you like to look at:\n'
+    for x in CITY_DATA:
+        input_str = input_str + x.title() + '\n'
+
+    city = input(input_str)
     file_name = CITY_DATA.get(city.lower())
     while len(city)<=2 and file_name is None:
         city = str(input("Try again, only select the cities on the list:"))
