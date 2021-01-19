@@ -4,6 +4,10 @@ import pandas as pd
 import numpy as np
 import sys
 
+def indent(text, amount, ch=' '):
+        padding = amount * ch
+        return ''.join(padding+line for line in text.splitlines(True))
+
 def get_filters():
     #initialize and clear variables used
     #City files are controlled by this dictionary
@@ -22,7 +26,7 @@ def get_filters():
     #Get city for analysis focus - make input string dynamic based on input files
     input_str = 'Would you like to look at:\n'
     for x in CITY_DATA:
-        input_str = input_str + x.title() + '\n'
+        input_str = input_str + indent(x.title(), 4) + '\n'
 
     city = input(input_str)
     file_name = CITY_DATA.get(city.lower())
