@@ -6,10 +6,16 @@ import pandas as pd
 import numpy as np
 import sys
 
+def indent(text, amount, ch=' '):
+        padding = amount * ch
+        return ''.join(padding+line for line in text.splitlines(True))
+
 def get_filters():
     #initialize and clear variables used
+    #City files are controlled by this dictionary
     CITY_DATA = { 'chicago': 'chicago.csv', 'new york': 'new_york_city.csv', 'washington': 'washington.csv' }
 
+    #filters are controlled through these options based on what is in the data
     filter_list = ['month', 'day', 'both', 'none']
     months_list = ['january', 'february', 'march', 'april', 'may', 'june', 'all']
     days_list = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'all']
@@ -19,8 +25,12 @@ def get_filters():
     focus_month = ''
     focus_day = ''
 
-    #Get city for analysis focus
-    city = input('Would you like to look at Chicago, New York or Washington?')
+    #Get city for analysis focus - make input string dynamic based on input files
+    input_str = 'Would you like to look at:\n'
+    for x in CITY_DATA:
+        input_str = input_str + indent(x.title(), 4) + '\n'
+
+    city = input(input_str)
     file_name = CITY_DATA.get(city.lower())
     while len(city)<=2 and file_name is None:
         city = str(input("Try again, only select the cities on the list:"))
